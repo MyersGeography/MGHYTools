@@ -1,0 +1,18 @@
+if($feature.Network == "Priority"){
+    var a = Filter($featureSet, "Network = 'Priority'");
+    var total = 0
+    for(var i in a){
+        total += i.Shape_Length;
+    }
+    
+    return $feature.Shape_Length/total * 100
+ 
+ } else {
+    var b = Filter($featureSet, "Network = 'Secondary'");
+    var total = 0
+    for(var i in b){
+        total += i;
+    }
+    
+    return $feature.Shape_Length/total * 100
+ }
