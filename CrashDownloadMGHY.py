@@ -49,18 +49,18 @@ import ctypes
 import os
 from numpy import loadtxt
 
+
 # ws = r'//citydata/public/MSO_Engr/KDOT/CrashReports/'
 # move the list local while hte VPN is down
-ws = r'C:/Users/kgonterwitz/Downloads/crashdownload20220726/'
-download_folder = r'C:/Users/kgonterwitz/Downloads/crashdownload20220726'
+ws = r'C:/Users/cmyers/Desktop/CrashDownload_Lists/'
+dl = r'C:/Users/cmyers/Desktop/CrashDownload_Lists/Downloads/'
 
 # start a counter to print and match to text file line numbers
-# open list in notepad ++ and turn on row numbers
-# if a file isnt downloaded in time it can be quickly retrieved from the TRS url
+# open list in notepad++ and turn on row numbers
+# if a file isn't downloaded in time it can be quickly retrieved from the TRS url
 index = 0
 
-text_file = ws + "KDOT20230313KG2.txt"
-# text_file = ws+"KDOTtest.txt"
+text_file = ws + "crashList_forPythonScript.txt"
 
 lines = loadtxt(text_file, dtype=str, comments="#", delimiter=" | ", unpack=False)
 
@@ -87,10 +87,10 @@ for line in lines:
     url = "https://portal.kstrs.org/private/PDF.aspx?itemID=" + str((line[1:2]))[
                                                                 2:10] + "&VerNbr=1&rType=PDF&rSource=AccidentLib"
     webbrowser.open(url, new=0, autoraise=True)
-    sleep(6)
+    sleep(3.5)
     # click()
-    os.rename(ws + 'PDF.pdf', ws + file_name)
-    sleep(2)
+    os.rename(dl + 'PDF.pdf', dl + file_name)
+    #sleep(1)
     # clickDown()
     # pyperclip.paste()
     # sleep(2)
