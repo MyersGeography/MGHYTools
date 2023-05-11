@@ -36,9 +36,9 @@ copy downloaded files to \\citydata\public\MSO_Engr\KDOT\CrashReports
 
 log into TRS at https://portal.kstrs.org/private/SimpleSearch.aspx
 
-added pause after each 20 crashes for browser maintenance
+added pause after each 20 crashes for browser maintenance - decided to remove 4/26/2023
 
-@author: kgonterwitz
+@author: kgonterwitz ... updated by cmyers
 """
 
 import webbrowser
@@ -52,31 +52,35 @@ from numpy import loadtxt
 
 # ws = r'//citydata/public/MSO_Engr/KDOT/CrashReports/'
 # move the list local while hte VPN is down
-ws = r'C:/Users/cmyers/Desktop/CrashDownload_Lists/'
-dl = r'C:/Users/cmyers/Desktop/CrashDownload_Lists/Downloads/'
+ws = r'C:/Users/cmyers/Downloads/crashdownload20230424/'
+dl = r'C:/Users/cmyers/Downloads/crashdownload20230424/downloads/'
 
 # start a counter to print and match to text file line numbers
 # open list in notepad++ and turn on row numbers
 # if a file isn't downloaded in time it can be quickly retrieved from the TRS url
 index = 0
 
-text_file = ws + "crashList_forPythonScript.txt"
+text_file = ws + "KDOT20230424.csv"
 
-lines = loadtxt(text_file, dtype=str, comments="#", delimiter=" | ", unpack=False)
+lines = loadtxt(text_file, dtype=str, comments="#", delimiter=",", unpack=False)
 
-
-def click():
-    ctypes.windll.user32.SetCursorPos(1805, 83)
-    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
-    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
+# CHMnote: "useful for seeing how your list looks if the code fails:"
+# print lines
 
 
-def clickDown():
-    ctypes.windll.user32.SetCursorPos(232, 685)
-    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
-    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
-    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
-    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
+# CHMnote: "No longer necessary because of new discoveries in how Chrome downloads pdfs"
+#def click():
+#    ctypes.windll.user32.SetCursorPos(1805, 83)
+#    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
+#    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
+
+# CHMnote: "No longer necessary because of new discoveries in how Chrome downloads pdfs"
+#def clickDown():
+#    ctypes.windll.user32.SetCursorPos(232, 685)
+#    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
+#    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
+#    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
+#    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
 
 
 for line in lines:
@@ -87,21 +91,24 @@ for line in lines:
     url = "https://portal.kstrs.org/private/PDF.aspx?itemID=" + str((line[1:2]))[
                                                                 2:10] + "&VerNbr=1&rType=PDF&rSource=AccidentLib"
     webbrowser.open(url, new=0, autoraise=True)
-    sleep(3.5)
+    sleep(4)
     # click()
     os.rename(dl + 'PDF.pdf', dl + file_name)
+
+
+    #CHMnote: "The following is not necessary for how I run the tool -- relics from when Kyle would manually enter certain values"
     #sleep(1)
     # clickDown()
     # pyperclip.paste()
     # sleep(2)
-    if not index % 20:
-        print('20 second break')
-        sleep(20)
-        print('break time is over, back to work')
-        sleep(1)
-        print('in 3...')
-        sleep(1)
-        print('2..')
-        sleep(1)
-        print('1')
-        sleep(1)
+    #if not index % 20:
+        #print('Taking a 20 second break')
+        #sleep(20)
+        #print('break time is over, back to work')
+        #sleep(1)
+        #print('in 3...')
+        #sleep(1)
+        #print('2..')
+        #sleep(1)
+        #print('1')
+        #sleep(1)
