@@ -52,15 +52,15 @@ from numpy import loadtxt
 
 # ws = r'//citydata/public/MSO_Engr/KDOT/CrashReports/'
 # move the list local while hte VPN is down
-ws = r'C:/Users/cmyers/Downloads/crashdownload20230424/'
-dl = r'C:/Users/cmyers/Downloads/crashdownload20230424/downloads/'
+ws = r'C:/Users/cmyers/Downloads/crashdownload20230620/'
+dl = r'C:/Users/cmyers/Downloads/crashdownload20230620/downloads/'
 
 # start a counter to print and match to text file line numbers
 # open list in notepad++ and turn on row numbers
 # if a file isn't downloaded in time it can be quickly retrieved from the TRS url
 index = 0
 
-text_file = ws + "KDOT20230424.csv"
+text_file = ws + "crashdownload20230620.csv"
 
 lines = loadtxt(text_file, dtype=str, comments="#", delimiter=",", unpack=False)
 
@@ -88,10 +88,11 @@ for line in lines:
     file_name = str((line[0:1]))[2:13] + ".pdf"
     print(str(index) + " " + str(file_name))
     pyperclip.copy(file_name)
-    url = "https://portal.kstrs.org/private/PDF.aspx?itemID=" + str((line[1:2]))[
-                                                                2:10] + "&VerNbr=1&rType=PDF&rSource=AccidentLib"
+    print("Asking KDOT for " + str((line[1:2]))[2:10])
+    # print("https://portal.kstrs.org/private/PDF.aspx?itemID=" + str((line[1:2]))[2:9] + "&VerNbr=1&rType=PDF&rSource=AccidentLib")
+    url = "https://portal.kstrs.org/private/PDF.aspx?itemID=" + str((line[1:2]))[2:10] + "&VerNbr=1&rType=PDF&rSource=AccidentLib"
     webbrowser.open(url, new=0, autoraise=True)
-    sleep(4)
+    sleep(5)
     # click()
     os.rename(dl + 'PDF.pdf', dl + file_name)
 
