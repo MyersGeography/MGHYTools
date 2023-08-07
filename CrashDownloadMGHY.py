@@ -42,46 +42,29 @@ added pause after each 20 crashes for browser maintenance - decided to remove 4/
 """
 
 import webbrowser
-# import pdfkit
 from time import sleep
 import pyperclip
-import ctypes
 import os
 from numpy import loadtxt
 
 
 # ws = r'//citydata/public/MSO_Engr/KDOT/CrashReports/'
 # move the list local while hte VPN is down
-ws = r'C:/Users/cmyers/Downloads/crashdownload20230620/'
-dl = r'C:/Users/cmyers/Downloads/crashdownload20230620/downloads/'
+ws = r'C:/Users/cmyers/Downloads/crashdownload20230807/'
+dl = r'C:/Users/cmyers/Downloads/crashdownload20230807/downloads/'
 
-# start a counter to print and match to text file line numbers
-# open list in notepad++ and turn on row numbers
-# if a file isn't downloaded in time it can be quickly retrieved from the TRS url
 index = 0
 
-text_file = ws + "crashdownload20230620.csv"
+
+######## INSTRUCTIONS TO RUN:
+# the following text file must be formatted with no column headers ...
+# ACCIDENT_KEY in the first column ...
+# and REPORT_IMAGE_LINK in the second column
+# be sure to set the Chrome download folder to somewhere local
+
+text_file = ws + "Sorted_bits_export.csv"
 
 lines = loadtxt(text_file, dtype=str, comments="#", delimiter=",", unpack=False)
-
-# CHMnote: "useful for seeing how your list looks if the code fails:"
-# print lines
-
-
-# CHMnote: "No longer necessary because of new discoveries in how Chrome downloads pdfs"
-#def click():
-#    ctypes.windll.user32.SetCursorPos(1805, 83)
-#    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
-#    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
-
-# CHMnote: "No longer necessary because of new discoveries in how Chrome downloads pdfs"
-#def clickDown():
-#    ctypes.windll.user32.SetCursorPos(232, 685)
-#    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
-#    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
-#    ctypes.windll.user32.mouse_event(2, 0, 0, 0, 0)  # left down
-#    ctypes.windll.user32.mouse_event(4, 0, 0, 0, 0)  # left up
-
 
 for line in lines:
     index += 1
@@ -96,20 +79,3 @@ for line in lines:
     # click()
     os.rename(dl + 'PDF.pdf', dl + file_name)
 
-
-    #CHMnote: "The following is not necessary for how I run the tool -- relics from when Kyle would manually enter certain values"
-    #sleep(1)
-    # clickDown()
-    # pyperclip.paste()
-    # sleep(2)
-    #if not index % 20:
-        #print('Taking a 20 second break')
-        #sleep(20)
-        #print('break time is over, back to work')
-        #sleep(1)
-        #print('in 3...')
-        #sleep(1)
-        #print('2..')
-        #sleep(1)
-        #print('1')
-        #sleep(1)
