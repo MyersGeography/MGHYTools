@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Apr  6 09:09:43 2022
-save to a C drive location to make it faster and avoid the "already exists repladce yes/no question on each download"
+save to a C drive location to make it faster and avoid the "already exists replace yes/no question on each download"
 The weekly download list contains mostly reports we already have that need to be overwritten for some reason
 
 This is python 3 code written and run in Eclipse/pyDev for Eclipse 
@@ -45,13 +45,14 @@ import webbrowser
 from time import sleep
 import pyperclip
 import os
+import csv
 from numpy import loadtxt
 
 
 # ws = r'//citydata/public/MSO_Engr/KDOT/CrashReports/'
 # move the list local while hte VPN is down
-ws = r'C:/Users/cmyers/Downloads/crashdownload20230807/'
-dl = r'C:/Users/cmyers/Downloads/crashdownload20230807/downloads/'
+ws = r'C:/Users/cmyers/Downloads/crashdownload20230918/'
+dl = r'C:/Users/cmyers/Downloads/crashdownload20230918/downloads/'
 
 index = 0
 
@@ -68,7 +69,7 @@ lines = loadtxt(text_file, dtype=str, comments="#", delimiter=",", unpack=False)
 
 for line in lines:
     index += 1
-    file_name = str((line[0:1]))[2:13] + ".pdf"
+    file_name = str((line[0:1]))[2:14] + ".pdf"
     print(str(index) + " " + str(file_name))
     pyperclip.copy(file_name)
     print("Asking KDOT for " + str((line[1:2]))[2:10])
