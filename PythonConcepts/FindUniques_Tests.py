@@ -1,6 +1,7 @@
+#pip install requests
 import re
 import pandas as pd
-
+import requests
 # USING re TO CHANGE HOW A TEST SEARCHES FOR A STRING
 # Pattern to match 'hyperlink' or 'Hyperlink' (case-insensitive)
 pattern = re.compile(r'hyperlink', re.IGNORECASE)
@@ -31,3 +32,19 @@ df = pd.DataFrame(data)
 
 # Display the DataFrame
 print(df)
+
+
+# Make a sample HTTP request
+url = 'https://app.e-builder.net/da2/Documents/FileView.aspx?FileID=f3f9f221-dff5-4d66-9667-ba820f6132e3'
+response = requests.get(url)
+
+# Check the content-type header
+content_type = response.headers.get('content-type', '')
+
+# Check if the content-type indicates a PDF or if the response content starts with '%PDF'
+is_pdf = content_type.lower().startswith('application/pdf') or response.content.startswith(b'%PDF')
+
+if is_pdf:
+    print(f'The URL {url} seems to point to a PDF file.')
+else:
+    print(f'The URL {url} does not appear to be a PDF file.')
